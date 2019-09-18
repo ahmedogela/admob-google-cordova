@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'), q = require('q');
 
 module.exports = function (context) {
-    var deferred = new context.require('q').defer(),
+    var deferred = new q.defer(),
         src = path.resolve(context.opts.plugin.dir, 'www'),
         www = path.resolve(context.opts.projectRoot, 'www'),
         lib = path.resolve(context.opts.projectRoot, 'www', 'lib'),
@@ -58,7 +58,7 @@ function showErrorNotice(context, err) {
 }
 
 function ensureExists(context, path, mask) {
-    var deferred = new context.require('q').defer();
+    var deferred = new q.defer();
     if (typeof mask == 'function') { // allow the `mask` parameter to be optional
         cb = mask;
         mask = 0777;
